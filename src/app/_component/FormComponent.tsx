@@ -17,7 +17,7 @@ import axios from "axios";
 interface FormValues {
   firstName: string;
   secondName: string;
-  location: string;
+  location: Location;
 }
 
 interface Location {
@@ -33,7 +33,9 @@ const FormComponent = (): JSX.Element => {
     defaultValues: {
       firstName: "",
       secondName: "",
-      location: "",
+      location: {
+        id: "",
+      },
     },
   });
 
@@ -68,7 +70,7 @@ const FormComponent = (): JSX.Element => {
       .catch((error) => console.error("Error posting data:", error));
   };
 
-  const handleEdit = (id:string) => {
+  const handleEdit = (id: string) => {
     // Edit data (PUT request)
     if (initialData) {
       axios
@@ -122,7 +124,7 @@ const FormComponent = (): JSX.Element => {
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Controller
-              name="location"
+              name="location.id"
               control={control}
               rules={{ required: "Location is required" }}
               render={({ field, fieldState }) => (
@@ -161,14 +163,24 @@ const FormComponent = (): JSX.Element => {
         </Grid>
       </form>
 
-      <Typography variant="h5" component="h2" gutterBottom style={{ marginTop: "20px" }}>
+      <Typography
+        variant="h5"
+        component="h2"
+        gutterBottom
+        style={{ marginTop: "20px" }}
+      >
         Submitted Data
       </Typography>
       <List>
         {submittedData.map((item, index) => (
           <ListItem key={index}>
             <ListItemText
-              primary={`First Name: ${item.firstName}, Second Name: ${item.secondName}, Location: ${locationList.find(loc => loc.id === item.location)?.name || 'Unknown'}`}
+              primary={`First Name: ${item.firstName}, Second Name: ${
+                item.secondName
+              }, Location: ${
+                locationList.find((loc) => loc.id === item.location.id)?.name ||
+                "Unknown"
+              }`}
             />
           </ListItem>
         ))}
