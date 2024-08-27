@@ -57,7 +57,7 @@ const FormComponent = (): JSX.Element => {
   const onSubmit = (data: FormValues) => {
     // Post data to API
     axios
-      .post("https://localhost:8800/data", data)
+      .post("https://localhost:8800/api/form", data)
       .then((response) => {
         console.log("Data posted successfully:", response.data);
         alert("Data submitted successfully!");
@@ -68,11 +68,11 @@ const FormComponent = (): JSX.Element => {
       .catch((error) => console.error("Error posting data:", error));
   };
 
-  const handleEdit = () => {
+  const handleEdit = (id:string) => {
     // Edit data (PUT request)
     if (initialData) {
       axios
-        .put("https://localhost:8800/data/1", initialData)
+        .put(`https://localhost:8800/data/${id}`, initialData)
         .then((response) => {
           console.log("Data updated successfully:", response.data);
           alert("Data updated successfully!");
