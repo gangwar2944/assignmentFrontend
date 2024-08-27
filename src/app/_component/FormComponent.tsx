@@ -51,7 +51,7 @@ const FormComponent = (): JSX.Element => {
 
     // Fetch locations
     axios
-      .get("https://localhost:8800/getLocationAll")
+      .get("localhost:8800/api/form/location")
       .then((response) => setLocationList(response.data))
       .catch((error) => console.error("Error fetching locations:", error));
   }, [reset]);
