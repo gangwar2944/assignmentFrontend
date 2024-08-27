@@ -72,7 +72,7 @@ const FormComponent = (): JSX.Element => {
     // Edit data (PUT request)
     if (initialData) {
       axios
-        .put(`https://localhost:8800/data/${id}`, initialData)
+        .put(`https://localhost:8800/api/form/${id}`, initialData)
         .then((response) => {
           console.log("Data updated successfully:", response.data);
           alert("Data updated successfully!");
